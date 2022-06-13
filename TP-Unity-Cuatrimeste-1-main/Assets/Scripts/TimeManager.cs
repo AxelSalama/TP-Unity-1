@@ -2,59 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
-
 
 public class TimeManager : MonoBehaviour
 {
-    public Text txtTimeFloored;
-    public Text txtCountdown;
-    int counter;
-    public float timeToChange;
-    public float waitTime;
-    public Text txtTiempoFinal;
+    public Text txtTime;
+    public Text txtTiempoFloored;
+    public Text txtCuentaRegresiva;
+    public GameObject txtCount;
 
-    float tiempo = 0;
-    float countertiempo = -6;
+    public float TimeToChange;
+    public float waitTime;
+    public bool TerminoCountDown;
+    int counter;
 
     void Start()
     {
         counter = 3;
-        txtCountdown.text = counter.ToString();
-
-        txtTiempoFinal = txtTimeFloored;
+        txtCuentaRegresiva.text = counter.ToString();
+        TerminoCountDown = false;
     }
+
     void Update()
     {
-        countertiempo = Time.time;
+        txtTime.text = Time.time.ToString();
+        txtTiempoFloored.text = Mathf.FloorToInt(Time.time).ToString();
 
-        if(Time.time -6 >= 0)
-        {
-         txtTimeFloored.text = Mathf.FloorToInt(countertiempo - 6).ToString();
-        }
-
-        if(Time.time >= tiempo + 6)
-        {
-
-        } 
-
-        if (timeToChange < Time.time)
+        if (TimeToChange < Time.time)
         {
             counter--;
-                if (counter > 0)
-                {
-                    txtCountdown.text = counter.ToString();
-                    timeToChange += waitTime;
-                }
-                else
-                {
-                txtCountdown.text = "¡Start!";
-                }
-
-            if (counter <= 7)
+            if (counter > 0)
             {
-                Destroy(txtCountdown);
+                txtCuentaRegresiva.text = counter.ToString();
+                TimeToChange += waitTime;
             }
+            else if (counter < 0 && counter > -1.2f)
+            {
+                txtCuentaRegresiva.text = "GO!";
+            }
+        }
+
+        if (Time.time > 6)
+        {
+            txtCount.SetActive(false);
+            TerminoCountDown = true;
         }
     }
 }
