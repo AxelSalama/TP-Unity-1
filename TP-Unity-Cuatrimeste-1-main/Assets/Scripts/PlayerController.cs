@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,7 +11,6 @@ public class PlayerController : MonoBehaviour
 
     bool isGrounded = false;
     Rigidbody rb;
-
     void Awake()
     {
         Physics.gravity = gravity;
@@ -18,19 +19,24 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space) && isGrounded)
-        {
-            rb.velocity = jumpspeed;
-            isGrounded = false;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += new Vector3(0,0,0.1f);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += new Vector3(0,0,-0.1f);
-        }
+            if (Input.GetKey(KeyCode.Space) && isGrounded)
+            {
+                rb.velocity = jumpspeed;
+                isGrounded = false;
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                transform.position += new Vector3(0, 0, 0.1f);
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.position += new Vector3(0, 0, -0.1f);
+            }  
+
+            if (transform.position.y == 0)
+            {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
     }
 
     void OnCollisionEnter(Collision collision)
