@@ -5,13 +5,17 @@ using UnityEngine;
 public class Instantiate : MonoBehaviour
 {
     public GameObject cubePrefab, clone;
-
+    public float a = 6;
     void Update()
     {
-         if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            clone = Instantiate(cubePrefab, transform.position, Quaternion.identity);
-            Destroy(clone, 3);
-        }    
+            while (a > 0)
+            {
+                a--;
+                clone = Instantiate(cubePrefab, transform.position, Quaternion.identity);
+                Destroy(clone, 3);
+            }
+        }
     }
 }
